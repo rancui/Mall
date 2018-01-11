@@ -9,5 +9,6 @@ public interface IUserService {
     ServerResponse<User> getUserInformation(Integer userId);
     ServerResponse<String> forgetGetQuestion(String username);
     ServerResponse<String> checkAnswer(String username,String question,String answer);
+    ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken);
 
 }

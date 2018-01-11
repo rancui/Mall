@@ -186,6 +186,11 @@
         and answer = #{answer}
     </select>
 
+    <update id="resetPasswordByUsername" parameterType="map">
+        UPDATE mmall_user
+        SET password = #{passwordNew},update_time = now()
+        where username = #{username}
+    </update>
 
 
 
