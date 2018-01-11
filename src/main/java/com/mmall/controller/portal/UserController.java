@@ -68,6 +68,11 @@ public class UserController {
     }
 
 
+    /**
+     *  获取用户信息
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "get_user_info.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getUserInfo(HttpSession session){
@@ -79,11 +84,34 @@ public class UserController {
         }
 
         return ServerResponse.createBySuccessData(user);
+    }
 
+    /**
+     *  忘记密码的情况，根据用户名获取问题
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "forget_get_question.do",method = RequestMethod.POST)
+    @ResponseBody
+    public  ServerResponse<String> forgetGetQuestion(String username){
+
+          return iUserService.forgetGetQuestion(username);
 
     }
 
+    /**
+     *  验证问题答案
+     * @param username
+     * @param question
+     * @param answer
+     * @return
+     */
 
+    public ServerResponse<String> forgetGetAnswer(String username,String question,String answer){
+
+             return iUserService.checkAnswer(username,question,answer);
+
+    }
 
 
 

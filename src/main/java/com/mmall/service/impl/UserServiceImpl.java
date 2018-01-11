@@ -128,10 +128,44 @@ public class UserServiceImpl implements IUserService{
 
    }
 
+    /**
+     *  忘记密码的情况，根据用户名获取问题
+     * @param username
+     * @return
+     */
+   public ServerResponse<String> forgetGetQuestion(String username){
+
+       if(StringUtils.isBlank(username)){
+           return ServerResponse.createByErrorMessage("用户名不能为空");
+       }
+
+       String question = userMapper.selectQuestionByUsername(username);
+       if(StringUtils.isBlank(question)){
+
+           return ServerResponse.createByErrorMessage("问题不存在");
+       }
+
+       return ServerResponse.createBySuccessData(question);
 
 
+   }
 
 
+    /***
+     * 验证问题答案
+     * @param username
+     * @param question
+     * @param answer
+     * @return
+     */
+   public ServerResponse<String> checkAnswer(String username,String question,String answer){
+
+       int count = userMapper.checkAnswer(username,question,answer);
+       if(count==0){
+           return ServerResponse.createByErrorMessage("答案错误");
+       }
+       return ServerResponse.createBySuccessData(answer);
+   }
 
 
 
