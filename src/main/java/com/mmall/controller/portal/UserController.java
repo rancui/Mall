@@ -129,8 +129,21 @@ public class UserController {
     }
 
 
+    /**
+     *  已登录状态下，重置密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
+    @RequestMapping(value = "reset_password.do",method = RequestMethod.POST)
+    @ResponseBody
+    public  ServerResponse<String> resetPassword(String username,String passwordNew,String forgetToken){
 
+        return null;
+        //return iUserService.forgetResetPassword(username,passwordNew,forgetToken);
 
+    }
 
 
 
