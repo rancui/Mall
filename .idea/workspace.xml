@@ -62,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/impl/UserServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1759">
-              <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+              <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,17 +86,17 @@
             <state relative-caret-position="205">
               <caret line="181" column="23" lean-forward="false" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
               <folding>
-                <marker date="1515569906778" expanded="true" signature="1403:1520" ph="select from mmall_user" />
-                <marker date="1515569906778" expanded="true" signature="1611:1671" ph="delete from mmall_user... " />
-                <marker date="1515569906778" expanded="true" signature="1750:2150" ph="insert into mmall_user... " />
-                <marker date="1515569906778" expanded="true" signature="4341:5438" ph="update mmall_user... " />
-                <marker date="1515569906778" expanded="true" signature="5535:6001" ph="update mmall_user... " />
-                <marker date="1515569906778" expanded="true" signature="6098:6166" ph="select count... mmall_user" />
-                <marker date="1515569906778" expanded="true" signature="6256:6314" ph="select count... mmall_user" />
-                <marker date="1515569906778" expanded="true" signature="6413:6559" ph="SELECT FROM mmall_user" />
-                <marker date="1515569906778" expanded="true" signature="6670:6699" ph="SELECT quest... uu" />
-                <marker date="1515569906778" expanded="true" signature="6670:6746" ph="SELECT quest... mmall_user" />
-                <marker date="1515569906778" expanded="true" signature="6838:6980" ph="SELECT COUNT... mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="1403:1520" ph="select from mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="1611:1671" ph="delete from mmall_user... " />
+                <marker date="1515640312453" expanded="true" signature="1750:2150" ph="insert into mmall_user... " />
+                <marker date="1515640312453" expanded="true" signature="4341:5438" ph="update mmall_user... " />
+                <marker date="1515640312453" expanded="true" signature="5535:6001" ph="update mmall_user... " />
+                <marker date="1515640312453" expanded="true" signature="6098:6166" ph="select count... mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="6256:6314" ph="select count... mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="6413:6559" ph="SELECT FROM mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="6670:6699" ph="SELECT quest... uu" />
+                <marker date="1515640312453" expanded="true" signature="6670:6746" ph="SELECT quest... mmall_user" />
+                <marker date="1515640312453" expanded="true" signature="6838:6980" ph="SELECT COUNT... mmall_user" />
               </folding>
             </state>
           </provider>
@@ -502,12 +502,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1515562688506</updated>
-      <workItem from="1515562690954" duration="10265000" />
+      <workItem from="1515562690954" duration="11018000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10265000" />
+    <option name="totallyTimeSpent" value="11018000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -600,17 +600,17 @@
         <state relative-caret-position="205">
           <caret line="181" column="23" lean-forward="false" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
           <folding>
-            <marker date="1515569906778" expanded="true" signature="1403:1520" ph="select from mmall_user" />
-            <marker date="1515569906778" expanded="true" signature="1611:1671" ph="delete from mmall_user... " />
-            <marker date="1515569906778" expanded="true" signature="1750:2150" ph="insert into mmall_user... " />
-            <marker date="1515569906778" expanded="true" signature="4341:5438" ph="update mmall_user... " />
-            <marker date="1515569906778" expanded="true" signature="5535:6001" ph="update mmall_user... " />
-            <marker date="1515569906778" expanded="true" signature="6098:6166" ph="select count... mmall_user" />
-            <marker date="1515569906778" expanded="true" signature="6256:6314" ph="select count... mmall_user" />
-            <marker date="1515569906778" expanded="true" signature="6413:6559" ph="SELECT FROM mmall_user" />
-            <marker date="1515569906778" expanded="true" signature="6670:6699" ph="SELECT quest... uu" />
-            <marker date="1515569906778" expanded="true" signature="6670:6746" ph="SELECT quest... mmall_user" />
-            <marker date="1515569906778" expanded="true" signature="6838:6980" ph="SELECT COUNT... mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="1403:1520" ph="select from mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="1611:1671" ph="delete from mmall_user... " />
+            <marker date="1515640312453" expanded="true" signature="1750:2150" ph="insert into mmall_user... " />
+            <marker date="1515640312453" expanded="true" signature="4341:5438" ph="update mmall_user... " />
+            <marker date="1515640312453" expanded="true" signature="5535:6001" ph="update mmall_user... " />
+            <marker date="1515640312453" expanded="true" signature="6098:6166" ph="select count... mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="6256:6314" ph="select count... mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="6413:6559" ph="SELECT FROM mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="6670:6699" ph="SELECT quest... uu" />
+            <marker date="1515640312453" expanded="true" signature="6670:6746" ph="SELECT quest... mmall_user" />
+            <marker date="1515640312453" expanded="true" signature="6838:6980" ph="SELECT COUNT... mmall_user" />
           </folding>
         </state>
       </provider>
@@ -634,7 +634,7 @@
     <entry file="file://$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1759">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
