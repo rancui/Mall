@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efc9aa82-3b88-4af7-89a5-e76d88d6ff57" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../mmall20180107/.gitignore" afterPath="$PROJECT_DIR$/../mmall20180107/.gitignore" />
       <change beforePath="$PROJECT_DIR$/../mmall20180107/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../mmall20180107/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/common/Const.java" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/common/Const.java" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/controller/portal/UserController.java" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/controller/portal/UserController.java" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/dao/UserMapper.java" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/dao/UserMapper.java" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/IUserService.java" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/IUserService.java" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/impl/UserServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/../mmall20180107/src/main/resources/mappers/UserMapper.xml" afterPath="$PROJECT_DIR$/../mmall20180107/src/main/resources/mappers/UserMapper.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/../mmall20180107/out/" />
     <ignored path="$PROJECT_DIR$/../mmall20180107/target/" />
@@ -54,11 +49,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/controller/portal/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="118" column="108" lean-forward="false" selection-start-line="118" selection-start-column="97" selection-end-line="118" selection-end-column="108" />
+            <state relative-caret-position="186">
+              <caret line="125" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../mmall20180107/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="19" column="7" lean-forward="false" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -172,6 +177,7 @@
         <option value="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/IUserService.java" />
         <option value="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/controller/portal/UserController.java" />
+        <option value="$PROJECT_DIR$/../mmall20180107/.gitignore" />
       </list>
     </option>
   </component>
@@ -206,7 +212,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="343" />
     <option name="y" value="37" />
     <option name="width" value="1346" />
@@ -552,15 +558,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1515562688506</updated>
-      <workItem from="1515562690954" duration="18080000" />
+      <workItem from="1515562690954" duration="19114000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18080000" />
+    <option name="totallyTimeSpent" value="19114000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -580,11 +586,11 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4760274" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4760274" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10616438" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.051908396" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5376712" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28015268" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -707,8 +713,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../mmall20180107/src/main/java/com/mmall/controller/portal/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="118" column="108" lean-forward="false" selection-start-line="118" selection-start-column="97" selection-end-line="118" selection-end-column="108" />
+        <state relative-caret-position="186">
+          <caret line="125" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../mmall20180107/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="19" column="7" lean-forward="false" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
           <folding />
         </state>
       </provider>
