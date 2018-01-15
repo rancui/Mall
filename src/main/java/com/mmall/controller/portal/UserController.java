@@ -150,6 +150,32 @@ public class UserController {
 
     }
 
+    /**
+     *  更新用户信息
+     * @param session
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "update_info.do",method = RequestMethod.POST)
+    @ResponseBody
+    public  ServerResponse<User> updatePersonalInfo(HttpSession session,User user){
+
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+
+        user.setId(currentUser.getId());
+        user.setUsername(currentUser.getUsername());
+
+        ServerResponse<User> userServerResponse = iUserService.updatePersonalInformation(user);
+        if(userServerResponse.isSuccess()){
+            userServerResponse.getData().setUsername(currentUser.getUsername());
+            session.setAttribute(Const.CURRENT_USER,userServerResponse.getData());
+        }
+
+        return userServerResponse;
+    }
 
 
 

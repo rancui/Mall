@@ -234,6 +234,39 @@ public class UserServiceImpl implements IUserService{
     }
 
 
+    /***
+     *  更新用户信息
+     * @param user
+     * @return
+     */
+    public ServerResponse<User> updatePersonalInformation(User user){
+
+        //用户名username不能更改，email也要检查是否已存在
+        int resultCount = userMapper.checkEmailByUserId(user.getEmail(),user.getId());
+        if(resultCount>0){
+            return  ServerResponse.createByErrorMessage("邮箱已存在，更更换其他邮箱");
+        }
+
+        User updateUser = new User();
+
+        updateUser.setId(user.getId());
+        updateUser.setEmail(user.getEmail());
+        updateUser.setPhone(user.getPhone());
+        updateUser.setQuestion(user.getQuestion());
+        updateUser.setAnswer(user.getAnswer());
+
+        int updateCount = userMapper.updateByPrimaryKeySelective(updateUser);
+        if(updateCount==0){
+            return ServerResponse.createByErrorMessage("用户信息更新失败");
+        }
+        return ServerResponse.createBySuccessMsgAndData("用户信息更新成功",updateUser);
+
+
+
+
+    }
+
+
 
 
 
