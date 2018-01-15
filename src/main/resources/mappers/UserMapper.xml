@@ -192,6 +192,11 @@
         where username = #{username}
     </update>
 
+  <select id="checkUserPassword" parameterType="map" resultType="int">
+      select count(1) from mmall_user
+      WHERE password = #{password}
+      and id = #{userId}
+  </select>
 
 
 
