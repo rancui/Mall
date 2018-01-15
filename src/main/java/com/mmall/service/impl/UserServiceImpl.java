@@ -207,8 +207,31 @@ public class UserServiceImpl implements IUserService{
     }
 
 
+    /**
+     * 登陆状态下，重置密码
+     * @param passwordNew
+     * @param passwordOld
+     * @return
+     */
+    public  ServerResponse<String> resetPassword(User user,String passwordOld,String passwordNew){
 
+        //根据用户Id,防止查询出其他也有相同密码的用户数
+        int count = userMapper.checkUserPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
+        if(count==0){
+            return ServerResponse.createByErrorMessage("用户旧密码不正确");
+        }
 
+        user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
+
+        int updateCount = userMapper.updateByPrimaryKeySelective(user);
+
+        if(updateCount==0){
+            return ServerResponse.createByErrorMessage("密码更新失败");
+        }
+
+        return ServerResponse.createBySuccessMessage("密码更新成功");
+
+    }
 
 
 
