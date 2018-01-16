@@ -261,11 +261,23 @@ public class UserServiceImpl implements IUserService{
         }
         return ServerResponse.createBySuccessMsgAndData("用户信息更新成功",updateUser);
 
-
-
-
     }
 
+
+    /**
+     *  检查是否具有管理员权限
+     * @param user
+     * @return
+     */
+    public ServerResponse checkAdminRole(User user){
+
+        if(user!=null&&user.getRole().intValue()==Const.Role.ROLE_ADMIN){
+            return ServerResponse.createBySuccess();
+        }
+
+        return ServerResponse.createByError();
+
+    }
 
 
 
