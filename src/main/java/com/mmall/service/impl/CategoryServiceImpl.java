@@ -60,7 +60,32 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
 
+    /**
+     * 更新设置品类名称
+     * @param categoryId
+     * @param categoryName
+     * @return
+     */
+    public  ServerResponse updateCategoryName(Integer categoryId, String categoryName){
 
+        if(categoryId==null || StringUtils.isBlank(categoryName)){
+            return ServerResponse.createByErrorMessage("更新品类名的传入的参数有数");
+        }
+
+        Category category = new Category();
+
+        category.setId(categoryId);
+        category.setName(categoryName);
+
+        int count = categoryMapper.updateByPrimaryKeySelective(category);
+
+        if(count==0){
+            return ServerResponse.createByErrorMessage("品类名更新失败");
+        }
+
+        return ServerResponse.createBySuccessMessage("品类名更新成功");
+
+    }
 
 
 

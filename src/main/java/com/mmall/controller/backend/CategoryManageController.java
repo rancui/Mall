@@ -69,6 +69,30 @@ public class CategoryManageController {
 
     }
 
+    /**
+     * 修改品类名字
+     * @param parentId
+     * @param categoryName
+     * @return
+     */
+    @RequestMapping(value = "set_category_name.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse setCategoryName(HttpSession session,Integer categoryId,String categoryName){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        if(iUserService.checkAdminRole(user).isSuccess()){
+
+            return iCategoryService.updateCategoryName(categoryId,categoryName);
+        }
+
+        return ServerResponse.createByErrorMessage("用户无管理员权限");
+
+    }
+
 
 
 
