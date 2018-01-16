@@ -198,6 +198,11 @@
       and id = #{userId}
   </select>
 
+    <select id="checkEmailByUserId" parameterType="string" resultType="int">
+        SELECT count(1) FROM mmall_user
+        WHERE id = #{userId}
+        and email = #{email}
+    </select>
 
 
 

@@ -5,4 +5,5 @@ import com.mmall.pojo.Category;
 
 public interface ICategoryService {
     ServerResponse<Category> addCategory(String categoryName, Integer parentId);
+    ServerResponse getChildParallelCategory(Integer categoryId);
 }
