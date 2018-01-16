@@ -71,7 +71,7 @@ public class CategoryManageController {
 
     /**
      * 修改品类名字
-     * @param parentId
+     * @param categoryId
      * @param categoryName
      * @return
      */
