@@ -94,7 +94,28 @@ public class CategoryManageController {
     }
 
 
+    /***
+     *  获取当前分类id及递归子节点categoryId
+     * @param session
+     * @param categoryId
+     * @return
+     */
+    @RequestMapping(value = "get_deep_category.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse getDeepCategory(HttpSession session,@RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
 
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        if(iUserService.checkAdminRole(user).isSuccess()){
+
+            return iCategoryService.selectCategoryAndChildrenById(categoryId);
+        }
+
+        return ServerResponse.createByErrorMessage("无权限操作，需要无管理员权限");
+    }
 
 
 
