@@ -107,6 +107,8 @@ public class CategoryServiceImpl implements ICategoryService {
            for(Category category:categorySet){
                categoryIdList.add(category.getId());
            }
+       }else {
+           return ServerResponse.createByErrorMessage("该类别id不存在");
        }
 
        return ServerResponse.createBySuccessData(categoryIdList);
@@ -129,7 +131,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
         List<Category> categoryList = categoryMapper.selectCategoryChildrenParallelByParentId(categoryId);
 
-        for (Category categoryItem :categoryList){
+        for (Category categoryItem:categoryList){
             findChildCategory(categorySet,categoryItem.getId());
         }
 
