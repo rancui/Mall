@@ -8,7 +8,7 @@ public interface IProductService {
 
     ServerResponse<ProductDetailVo> getProductDetail(Integer productId);
     ServerResponse<PageInfo> getProductListBykeyWordCategoryId(String keyword, Integer categoryId, int pageNum, int pageSize, String orderBy);
-
+    ServerResponse<PageInfo> getProductList(int pageNum,int pageSize);
 
 
 

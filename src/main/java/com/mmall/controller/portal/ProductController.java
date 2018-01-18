@@ -1,5 +1,6 @@
 package com.mmall.controller.portal;
 
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
@@ -54,17 +55,17 @@ public class ProductController {
      */
     @RequestMapping(value = "product_list.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse productList(HttpSession session, @RequestParam(value = "keyword",required = false)String keyword, @RequestParam(value = "categoryId",required = false) Integer categoryId, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize, @RequestParam(value = "orderBy",defaultValue = "") String orderBy){
+    public ServerResponse<PageInfo> productList(HttpSession session, @RequestParam(value = "keyword",required = false)String keyword, @RequestParam(value = "categoryId",required = false) Integer categoryId, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize, @RequestParam(value = "orderBy",defaultValue = "") String orderBy){
 
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
         }
 
-
         return iProductService.getProductListBykeyWordCategoryId(keyword,categoryId, pageNum,pageSize,orderBy);
 
     }
+
 
 
 

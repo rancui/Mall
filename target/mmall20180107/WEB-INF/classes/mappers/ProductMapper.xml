@@ -177,7 +177,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByKewordCategoryIdList" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByKeywordCategoryIdList" parameterType="map" resultMap="BaseResultMap">
 
     SELECT <include refid="Base_Column_List"/>
     FROM mmall_product
@@ -186,16 +186,19 @@
       and name like #{keyword}
     </if>
     <if test="categoryIdList!=null">
-
       and category_id in
       <foreach collection="categoryIdList" index="index" item="item" open="(" separator="," close=")">
         #{item}
       </foreach>
-
     </if>
-
-
   </select>
+
+    <select id="selectProductList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        order BY id asc
+    </select>
 
 
 

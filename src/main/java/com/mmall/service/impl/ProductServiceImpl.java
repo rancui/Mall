@@ -142,7 +142,7 @@ public class ProductServiceImpl implements IProductService{
                 }
             }
 
-            List<Product> productList = productMapper.selectByKewordCategoryIdList(StringUtils.isBlank(keyword)?null:keyword,categoryIdList==null?null:categoryIdList);
+            List<Product> productList = productMapper.selectByKeywordCategoryIdList(StringUtils.isBlank(keyword)?null:keyword,categoryIdList==null?null:categoryIdList);
             List<ProductListVo> productListVos = Lists.newArrayList();
             for(Product product:productList){
                 ProductListVo productListVo = assmbleProductListVo(product);
@@ -177,6 +177,35 @@ public class ProductServiceImpl implements IProductService{
 
     }
 
+
+    // backend
+
+    /**
+     *  获取产品列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize){
+
+           PageHelper.startPage(pageNum,pageSize);
+
+           List<Product> productList = productMapper.selectProductList();
+
+           List<ProductListVo> productListVoList = Lists.newArrayList();
+
+           for(Product product:productList){
+               ProductListVo productListVo = assmbleProductListVo(product);
+               productListVoList.add(productListVo);
+           }
+
+           PageInfo pageInfo = new PageInfo(productList);
+           pageInfo.setList(productListVoList);
+
+           return ServerResponse.createBySuccessData(pageInfo);
+
+
+    }
 
 
 
