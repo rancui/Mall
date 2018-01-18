@@ -40,5 +40,24 @@ public class Const {
         int ROLE_CUSTOMER = 0;//普通用户
     }
 
+    public enum  ProductStatusEnum{
+
+        ON_SALE(1,"在线");
+        private final int code;
+        private final String desc;
+        ProductStatusEnum(int code,String desc){
+            this.code = code;
+            this.desc = desc;
+        }
+        public int getCode() {
+            return code;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
+
+
 
 }
