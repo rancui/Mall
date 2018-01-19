@@ -31,7 +31,7 @@ public class ProductManageController {
     private IUserService iUserService;
 
     /**
-     * 产品列表（后台）
+     * 产品列表
      * @param session
      * @param pageNum
      * @param pageSize
@@ -53,7 +53,15 @@ public class ProductManageController {
 
     }
 
-
+    /**
+     * 搜索产品
+     * @param session
+     * @param productName
+     * @param productId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "search.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse searchProduct(HttpSession session, String productName, Integer productId, @RequestParam(value = "pageNum",defaultValue = "1")int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
@@ -70,12 +78,32 @@ public class ProductManageController {
             return ServerResponse.createByErrorMessage("非管理员权限");
         }
 
+    }
 
+    /**
+     *
+     * 产品详情
+     * @param session
+     * @param productId
+     * @return
+     */
+    @RequestMapping(value = "detail.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse productDetail(HttpSession session, Integer productId){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+        if(iUserService.checkAdminRole(user).isSuccess()){
+
+            return iProductService.getProductDetail(productId);
+
+        }else {
+            return ServerResponse.createByErrorMessage("非管理员权限");
+        }
 
 
     }
-
-
 
 
 
