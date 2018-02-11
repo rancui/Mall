@@ -12,6 +12,7 @@ import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
 import com.mmall.util.PropertiesUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -148,8 +150,50 @@ public class ProductManageController {
     }
 
 
+    /**
+     *  富文本上传
+     * @param session
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "richtext_img_upload.do",method = RequestMethod.POST)
+    @ResponseBody
+    public Map richtextImgUpload(HttpSession session,  @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
 
+        Map resultMap = Maps.newHashMap();
 
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            resultMap.put("success",false);
+            resultMap.put("msg","请联系管理员");
+
+        }
+
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            String path = request.getSession().getServletContext().getRealPath("upload");
+            String targetName = iFileService.upload(file,path);
+
+            if(StringUtils.isBlank(targetName)){
+                resultMap.put("success",false);
+                resultMap.put("msg","上传富文本失败");
+                return resultMap;
+            }
+
+            String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetName;
+            resultMap.put("success",true);
+            resultMap.put("msg","上传富文本成功");
+            resultMap.put("file_path",url);
+            response.addHeader("Access-Control-Allow-Headers","X-File-Name");
+            return resultMap;
+        }else {
+            resultMap.put("success",false);
+            resultMap.put("msg","无权限操作");
+            return resultMap;
+        }
+
+    }
 
 
 
