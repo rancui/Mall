@@ -1,23 +1,29 @@
 package com.mmall.controller.backend;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.PayInfo;
 import com.mmall.pojo.Product;
 import com.mmall.pojo.User;
 import com.mmall.service.ICategoryService;
+import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
+import com.mmall.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/manage/product/")
@@ -29,6 +35,8 @@ public class ProductManageController {
     private ICategoryService iCategoryService;
     @Autowired
     private IUserService iUserService;
+    @Autowired
+    private IFileService iFileService;
 
     /**
      * 产品列表
@@ -102,8 +110,44 @@ public class ProductManageController {
             return ServerResponse.createByErrorMessage("非管理员权限");
         }
 
+    }
+
+
+    /**
+     * 上传文件
+     * @param session
+     * @param request
+     * @param file
+     * @return
+     */
+    @RequestMapping(value = "upload.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse upload(HttpSession session, HttpServletRequest request, MultipartFile file){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+        if(iUserService.checkAdminRole(user).isSuccess()){
+
+            String path = request.getSession().getServletContext().getRealPath("upload");
+            String targetFileName = iFileService.upload(file,path);
+
+            String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+"image/"+targetFileName;
+
+            Map fileMap = Maps.newHashMap();
+            fileMap.put("uri",targetFileName);
+            fileMap.put("url",url);
+
+            return ServerResponse.createBySuccessData(fileMap);
+
+
+        }else {
+            return ServerResponse.createByErrorMessage("非管理员权限");
+        }
 
     }
+
+
 
 
 
