@@ -116,4 +116,70 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+    <select id="selectByUserIdProductId" resultMap="BaseResultMap" parameterType="map">
+
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_cart
+        WHERE user_id = #{userId}
+        and product_id = #{productId}
+
+    </select>
+
+<select id="selectCartProductCheckedStatusByUserId" resultType="java.lang.Integer" parameterType="int" >
+
+    SELECT COUNT(1)
+    FROM mmall_cart
+    WHERE checked = 0
+    and user_id = #{userId}
+
+
+</select>
+<select id="selectCartByUserId" parameterType="int" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM mmall_cart
+    WHERE user_id = #{userId}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

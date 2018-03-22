@@ -36,9 +36,129 @@ public class CartController {
         }
 
         return iCartService.add(user.getId(),productId,count);
-
-
     }
+
+
+    /**
+     *  购物车List列表
+     * @param session
+     * @return
+     */
+    @RequestMapping("list.do")
+    @ResponseBody
+    public ServerResponse list(HttpSession session){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.list(user.getId());
+    }
+
+    /**
+     *  更新购物车中某个产品数量
+     * @param session
+     * @param productId
+     * @param count
+     * @return
+     */
+    @RequestMapping("update.do")
+    @ResponseBody
+    public ServerResponse update(HttpSession session,Integer productId,Integer count){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.update(user.getId(),productId,count);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

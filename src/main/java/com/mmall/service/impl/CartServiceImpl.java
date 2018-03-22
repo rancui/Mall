@@ -61,11 +61,7 @@ public class CartServiceImpl implements ICartService{
         }
 
 
-        CartVo cartVo = this.getCartVoLimit(userId);
-
-
-        return ServerResponse.createBySuccessData(cartVo);
-
+        return this.list(userId);
 
     }
 
@@ -147,13 +143,55 @@ public class CartServiceImpl implements ICartService{
    private Boolean getAllCheckedStatus(Integer userId){
 
         if(userId!=null){
-            return cartMapper.getAllCheckedStatus(userId)==0;
+            return cartMapper.selectCartProductCheckedStatusByUserId(userId)==0;
         }
 
         return false;
 
    }
 
+    /**
+     *  购物车产品列表
+     * @param userId
+     * @return
+     */
+
+   public ServerResponse<CartVo> list(Integer userId){
+
+       CartVo cartVo = this.getCartVoLimit(userId);
+
+       return ServerResponse.createBySuccessData(cartVo);
+
+
+   }
+
+    /**
+     * 更新购物车中某个产品的数量
+     * @param userId
+     * @param productId
+     * @param count
+     * @return
+     */
+    public ServerResponse update(Integer userId,Integer productId,Integer count){
+
+     if(productId==null||count==null){
+
+         return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.ILLEGAL_ARGUMENT.getCode(),Const.ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+
+     }
+
+     Cart cart = cartMapper.selectByUserIdProductId(userId,productId);
+
+     if(cart!=null){
+
+         cart.setQuantity(count);
+     }
+
+     cartMapper.updateByPrimaryKeySelective(cart);
+
+     return this.list(userId);
+
+    }
 
 
 
