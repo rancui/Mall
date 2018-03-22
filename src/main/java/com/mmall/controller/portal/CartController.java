@@ -78,6 +78,24 @@ public class CartController {
     }
 
 
+    /**
+     * 移除购物车某个产品
+     * @param session
+     * @param productIds
+     * @return
+     */
+    @RequestMapping("delete.do")
+    @ResponseBody
+    public ServerResponse delete(HttpSession session,String productIds){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.deleteProduct(user.getId(), productIds);
+    }
 
 
 

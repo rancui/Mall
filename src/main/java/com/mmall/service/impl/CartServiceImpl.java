@@ -1,5 +1,6 @@
 package com.mmall.service.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
@@ -193,6 +194,30 @@ public class CartServiceImpl implements ICartService{
 
     }
 
+
+    /**
+     * 移除购物车某个产品
+     * @param userId
+     * @param prodductIds
+     * @return
+     */
+    public ServerResponse<CartVo> deleteProduct(Integer userId,String prodductIds){
+
+       List<String> productIdList = Splitter.on(",").splitToList(prodductIds);
+
+       if(CollectionUtils.isEmpty(productIdList)){
+           return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.ILLEGAL_ARGUMENT.getCode(),Const.ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+
+       }
+
+       cartMapper.deleteUserIdPorductIds(userId,productIdList);
+
+       return this.list(userId);
+
+
+
+
+    }
 
 
 
