@@ -118,6 +118,20 @@ public class CartController {
     }
 
 
+    @RequestMapping("un_select.do")
+    @ResponseBody
+    public ServerResponse unselect(HttpSession session,Integer productId){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.unSelectProduct(user.getId(), productId,Const.Cart.UN_CHECKED);
+    }
+
+
 
 
 

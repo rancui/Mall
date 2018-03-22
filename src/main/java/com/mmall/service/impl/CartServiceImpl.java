@@ -233,6 +233,21 @@ public class CartServiceImpl implements ICartService{
     }
 
 
+    /**
+     * 取消选中购物车某个商品
+     * @param userId
+     * @param productId
+     * @param checked
+     * @return
+     */
+    public ServerResponse<CartVo> unSelectProduct(Integer userId,Integer productId,Integer checked){
+
+        cartMapper.checkedOrUncheckedProduct(userId,productId,checked);
+
+        return this.list(userId);
+
+
+    }
 
 
 
