@@ -160,6 +160,17 @@
 
   </delete>
 
+  <update id="checkedOrUncheckedProduct" parameterType="map">
+
+    UPDATE mmall_cart
+    SET checked = #{checked}
+    where userId = #{userId}
+    <if test="productId!=null">
+      and prodcut_id =#{productId}
+    </if>
+
+  </update>
+
 
 
 

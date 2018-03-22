@@ -98,8 +98,24 @@ public class CartController {
     }
 
 
+    /**
+     * 购物车选中某个商品
+     * @param session
+     * @param productId
+     * @return
+     */
+    @RequestMapping("select.do")
+    @ResponseBody
+    public ServerResponse select(HttpSession session,Integer productId){
 
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
 
+        }
+
+        return iCartService.selectProduct(user.getId(), productId,Const.Cart.CHECKED);
+    }
 
 
 

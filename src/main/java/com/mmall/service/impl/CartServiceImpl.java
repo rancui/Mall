@@ -198,12 +198,12 @@ public class CartServiceImpl implements ICartService{
     /**
      * 移除购物车某个产品
      * @param userId
-     * @param prodductIds
+     * @param productIds
      * @return
      */
-    public ServerResponse<CartVo> deleteProduct(Integer userId,String prodductIds){
+    public ServerResponse<CartVo> deleteProduct(Integer userId,String productIds){
 
-       List<String> productIdList = Splitter.on(",").splitToList(prodductIds);
+       List<String> productIdList = Splitter.on(",").splitToList(productIds);
 
        if(CollectionUtils.isEmpty(productIdList)){
            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.ILLEGAL_ARGUMENT.getCode(),Const.ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -214,12 +214,23 @@ public class CartServiceImpl implements ICartService{
 
        return this.list(userId);
 
+    }
 
+    /**
+     * 购物车选中某个商品
+     * @param userId
+     * @param productId
+     * @param checked
+     * @return
+     */
+    public ServerResponse<CartVo> selectProduct(Integer userId,Integer productId,Integer checked){
+
+       cartMapper.checkedOrUncheckedProduct(userId,productId,checked);
+
+       return this.list(userId);
 
 
     }
-
-
 
 
 

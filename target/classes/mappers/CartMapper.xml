@@ -144,6 +144,21 @@
     WHERE user_id = #{userId}
 </select>
 
+  <delete id="deleteUserIdPorductIds" parameterType="map">
+
+     DELETE FROM mmall_cart
+     WHERE user_id = #{userId}
+     <if test="productIdList!=null">
+
+       and product_id in
+       <foreach collection="productIdList" item="item" index="index" open="(" separator="," close=")">
+         #{item}
+       </foreach>
+
+
+     </if>
+
+  </delete>
 
 
 
