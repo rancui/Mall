@@ -250,6 +250,18 @@ public class CartServiceImpl implements ICartService{
     }
 
 
+    /**
+     * 查询在购物车里的产品数量
+     * @param userId
+     * @return
+     */
+    public ServerResponse getCartProductCount(Integer userId){
+
+       int count = cartMapper.selectProductCountByUserId(userId);
+
+       return ServerResponse.createBySuccessData(count);
+
+    }
 
 
 

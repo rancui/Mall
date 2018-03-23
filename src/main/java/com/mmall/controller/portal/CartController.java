@@ -117,7 +117,12 @@ public class CartController {
         return iCartService.selectProduct(user.getId(), productId,Const.Cart.CHECKED);
     }
 
-
+    /**
+     * 取消选中购物车某个商品
+     * @param session
+     * @param productId
+     * @return
+     */
     @RequestMapping("un_select.do")
     @ResponseBody
     public ServerResponse unselect(HttpSession session,Integer productId){
@@ -132,6 +137,24 @@ public class CartController {
     }
 
 
+    /**
+     * 查询在购物车里的产品数量
+     * @param session
+     * @param productId
+     * @return
+     */
+    @RequestMapping("get_cart_product_count.do")
+    @ResponseBody
+    public ServerResponse getCartProductCount(HttpSession session,Integer productId){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.getCartProductCount(user.getId());
+    }
 
 
 

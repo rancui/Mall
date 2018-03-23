@@ -160,7 +160,23 @@
 
   </delete>
 
+  <update id="checkedOrUncheckedProduct" parameterType="map">
 
+    UPDATE mmall_cart
+    SET checked = #{checked}
+    where userId = #{userId}
+    <if test="productId!=null">
+      and prodcut_id =#{productId}
+    </if>
+
+  </update>
+
+<select id="selectProductCountByUserId" parameterType="int" resultType="int">
+
+  SELECT IFNULL(SUM(quantity),0) as count FROM mmall_cart WHERE user_id = #{userId}
+
+
+</select>
 
 
 
