@@ -210,7 +210,7 @@ public class CartServiceImpl implements ICartService{
 
        }
 
-       cartMapper.deleteUserIdPorductIds(userId,productIdList);
+       cartMapper.deleteByUserIdPorductIds(userId,productIdList);
 
        return this.list(userId);
 
@@ -262,6 +262,9 @@ public class CartServiceImpl implements ICartService{
        return ServerResponse.createBySuccessData(count);
 
     }
+
+
+
 
 
 

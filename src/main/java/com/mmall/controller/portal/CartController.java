@@ -4,6 +4,7 @@ import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.ICartService;
+import com.mmall.vo.CartVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,7 +107,7 @@ public class CartController {
      */
     @RequestMapping("select.do")
     @ResponseBody
-    public ServerResponse select(HttpSession session,Integer productId){
+    public ServerResponse<CartVo> select(HttpSession session, Integer productId){
 
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
@@ -125,7 +126,7 @@ public class CartController {
      */
     @RequestMapping("un_select.do")
     @ResponseBody
-    public ServerResponse unselect(HttpSession session,Integer productId){
+    public ServerResponse<CartVo> unselect(HttpSession session,Integer productId){
 
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
@@ -134,6 +135,46 @@ public class CartController {
         }
 
         return iCartService.unSelectProduct(user.getId(), productId,Const.Cart.UN_CHECKED);
+    }
+
+
+
+
+    /**
+     *  购物车全选
+     * @param session
+     * @return
+     */
+    @RequestMapping("select_all.do")
+    @ResponseBody
+    public ServerResponse selectAll(HttpSession session){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.unSelectProduct(user.getId(), null,Const.Cart.CHECKED);
+    }
+
+
+    /**
+     * 购物车取消全选
+     * @param session
+     * @return
+     */
+    @RequestMapping("un_select_all.do")
+    @ResponseBody
+    public ServerResponse unSelectAll(HttpSession session){
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iCartService.unSelectProduct(user.getId(), null,Const.Cart.UN_CHECKED);
     }
 
 
@@ -155,10 +196,6 @@ public class CartController {
 
         return iCartService.getCartProductCount(user.getId());
     }
-
-
-
-
 
 
 
