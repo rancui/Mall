@@ -55,8 +55,20 @@ public class OrderController {
     }
 
 
-
-
+    /**
+     * 获取订单的商品信息
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "get_order_cart_product.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse getOrderCartProduct(HttpSession session){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderCartProduct(user.getId());
+    }
 
 
 

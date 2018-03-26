@@ -9,10 +9,7 @@ import com.mmall.service.IOrderService;
 import com.mmall.util.BigDecimalUtil;
 import com.mmall.util.DateTimeUtil;
 import com.mmall.util.PropertiesUtil;
-import com.mmall.vo.CartVo;
-import com.mmall.vo.OrderItemVo;
-import com.mmall.vo.OrderVo;
-import com.mmall.vo.ShippingVo;
+import com.mmall.vo.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -335,6 +332,45 @@ private void cleanCart(List<Cart> cartList){
            }
 
            return ServerResponse.createByErrorMessage("订单取消失败");
+
+
+}
+
+    /**
+     * 获取订单的商品信息
+     * @param userId
+     * @return
+     */
+    public ServerResponse getOrderCartProduct(Integer userId){
+
+       List<Cart> cartList = cartMapper.selectCheckedSCartByUserId(userId);
+
+       if(CollectionUtils.isEmpty(cartList)){
+           return ServerResponse.createByErrorMessage("购物车为空");
+       }
+
+       ServerResponse serverResponse = this.getOrderItemFromCart(userId,cartList);
+
+       List<OrderItem> orderItemList = (List<OrderItem>) serverResponse.getData();
+
+       BigDecimal totalPrice = new BigDecimal("0");
+       List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+
+       for(OrderItem orderItem:orderItemList){
+
+           OrderItemVo orderItemVo = this.assmbleOrderItemVo(orderItem);
+           totalPrice = BigDecimalUtil.add(totalPrice.doubleValue(),orderItem.getTotalPrice().doubleValue());
+           orderItemVoList.add(orderItemVo);
+
+       }
+
+       OrderProductVo orderProductVo = new OrderProductVo();
+       orderProductVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
+       orderProductVo.setProductTotalPrice(totalPrice);
+       orderProductVo.setOrderItemVoList(orderItemVoList);
+
+       return ServerResponse.createBySuccessData(orderProductVo);
+
 
 
 }
