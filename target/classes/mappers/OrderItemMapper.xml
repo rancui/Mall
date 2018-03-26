@@ -178,9 +178,23 @@
     </foreach>
   </insert>
 
+    <select id="selectByOrderNo" parameterType="long" resultMap="BaseResultMap">
+
+        SELECT <include refid="Base_Column_List"/>
+        FROM mmall_order_item
+        WHERE order_no = #{orderNo}
+
+    </select>
 
 
+<select id="selectByUserIdAndOrderNo" resultMap="BaseResultMap" parameterType="map">
 
+    SELECT <include refid="Base_Column_List"/>
+    FROM mmall_order_item
+    WHERE user_id = #{userId}
+    and order_no = #{orderNo}
+
+</select>
 
 
 

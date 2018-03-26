@@ -1,5 +1,7 @@
 package com.mmall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
@@ -14,6 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.nio.cs.US_ASCII;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -376,12 +379,56 @@ private void cleanCart(List<Cart> cartList){
 }
 
 
+    /**
+     * 获取订单列表
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+public ServerResponse getOrderList(Integer userId,int pageNum,int pageSize){
+
+    PageHelper.startPage(pageNum,pageSize);
+
+    List<Order> orderList = orderMapper.selectOrderListByUserId(userId);
+    List<OrderVo> orderVoList = this.assmbleOrderVoList(userId,orderList);
+
+    PageInfo pageInfo = new PageInfo(orderList);
+    pageInfo.setList(orderVoList);
+
+    return ServerResponse.createBySuccessData(pageInfo);
+
+}
+
+
+private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
+
+    List<OrderVo> orderVoList = Lists.newArrayList();
+
+   for(Order order:orderList){
+
+       List<OrderItem> orderItemList = Lists.newArrayList();
+
+       if(userId==null){ //管理员,没有userId
+
+           orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+
+       }else {
+           orderItemList = orderItemMapper.selectByUserIdAndOrderNo(userId,order.getOrderNo());
+       }
+
+       OrderVo orderVo = assmbleOrderVo(order,orderItemList);
+       orderVoList.add(orderVo);
+
+   }
+
+
+    return orderVoList;
 
 
 
 
-
-
+}
 
 
 

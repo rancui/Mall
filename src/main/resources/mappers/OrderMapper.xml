@@ -209,7 +209,13 @@
   </select>
 
 
+<select id="selectOrderListByUserId" parameterType="int" resultMap="BaseResultMap">
 
+  SELECT <include refid="Base_Column_List"/>
+  FROM mmall_order
+  WHERE user_id = #{userId}
+
+</select>
 
 
 
