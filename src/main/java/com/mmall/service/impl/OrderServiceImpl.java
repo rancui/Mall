@@ -38,15 +38,19 @@ public class OrderServiceImpl implements IOrderService {
     private OrderItemMapper orderItemMapper;
 
 
-
-
+    /**
+     * 创建订单（从购物车中获取数据）
+     * @param userId
+     * @param shippingId 收货地址表的id
+     * @return
+     */
     public ServerResponse createOrder(Integer userId, Integer shippingId){
 
         //从购物车中获取数据
         List<Cart> cartList = cartMapper.selectCartByUserId(userId);
 
         //计算订单总价
-        ServerResponse serverResponse = getOrderItemFromCart(userId,cartList);
+        ServerResponse serverResponse = this.getOrderItemFromCart(userId,cartList);
 
         if(!serverResponse.isSuccess()){
             return serverResponse;
@@ -55,7 +59,7 @@ public class OrderServiceImpl implements IOrderService {
 
         List<OrderItem> orderItemList =( List<OrderItem>) serverResponse.getData();
 
-        BigDecimal totalPrice = getTotalPrice(orderItemList);
+        BigDecimal totalPrice = this.getTotalPrice(orderItemList);
 
 
         //生成订单
@@ -192,7 +196,7 @@ public class OrderServiceImpl implements IOrderService {
         for(Cart cart: cartList){
 
             OrderItem orderItem = new OrderItem();
-            Product product = productMapper.selectByPrimaryKey(cart.getId());
+            Product product = productMapper.selectByPrimaryKey(cart.getProductId());
             if(Const.ProductStatusEnum.ON_SALE.getCode()!=product.getStatus()){
 
                 return ServerResponse.createByErrorMessage("产品"+product.getName()+"已下线");
@@ -293,6 +297,75 @@ private void cleanCart(List<Cart> cartList){
             cartMapper.deleteByPrimaryKey(cart.getId());
         }
 }
+
+
+    /**
+     * 取消订单
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+    public  ServerResponse cancelOrder(Integer userId,Long orderNo){
+
+           Order order = orderMapper.selectOrderByUserIdAndOrderNo(userId,orderNo);
+
+           if(order==null){
+
+               return ServerResponse.createByErrorMessage("订单不存在");
+
+           }
+
+           if(Const.OrderStatusEnum.NO_PAY.getCode()< order.getStatus()){
+               return ServerResponse.createByErrorMessage("该订单已付款，无法取消！");
+           }
+
+           if(Const.OrderStatusEnum.CANCELED.getCode()==order.getStatus()){
+               return ServerResponse.createByErrorMessage("该订单已取消！");
+           }
+
+
+           Order orderNew = new Order();
+
+           orderNew.setId(order.getId());
+           orderNew.setStatus(Const.OrderStatusEnum.CANCELED.getCode());
+
+           int rowCount = orderMapper.updateByPrimaryKeySelective(orderNew);
+           if(rowCount>0){
+               return ServerResponse.createBySuccessMessage("订单取消成功");
+           }
+
+           return ServerResponse.createByErrorMessage("订单取消失败");
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -47,11 +47,12 @@ public class CartServiceImpl implements ICartService{
         Cart cart = cartMapper.selectByUserIdProductId(userId,productId);
         if(cart==null){ //购物车中不存在该商品
              Cart cartItem = new Cart();
-             cartItem.setId(productId);
              cartItem.setUserId(userId);
+             cartItem.setProductId(productId);
              cartItem.setQuantity(count);
              cartItem.setChecked(Const.Cart.CHECKED);
              cartMapper.insert(cartItem);
+
 
         }else{//购物车中已存在该商品
 

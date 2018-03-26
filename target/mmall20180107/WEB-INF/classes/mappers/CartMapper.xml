@@ -144,7 +144,7 @@
     WHERE user_id = #{userId}
 </select>
 
-  <delete id="deleteUserIdPorductIds" parameterType="map">
+  <delete id="deleteByUserIdPorductIds" parameterType="map">
 
      DELETE FROM mmall_cart
      WHERE user_id = #{userId}
@@ -174,7 +174,6 @@
 <select id="selectProductCountByUserId" parameterType="int" resultType="int">
 
   SELECT IFNULL(SUM(quantity),0) as count FROM mmall_cart WHERE user_id = #{userId}
-
 
 </select>
 
