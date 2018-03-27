@@ -533,10 +533,31 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
         }
 
         return ServerResponse.createByErrorMessage("订单不存在");
+   }
 
 
+    /**
+     * 订单发货
+     * @param orderNo
+     * @return
+     */
+   public  ServerResponse manageSendGoods(Long orderNo){
 
+       Order order = orderMapper.selectOrderByOrderNo(orderNo);
 
+       if(order!=null){
+           if(order.getStatus()==Const.OrderStatusEnum.PAID.getCode()){
+
+               order.setStatus(Const.OrderStatusEnum.SHIPPED.getCode());
+               order.setSendTime(new Date());
+               orderMapper.updateByPrimaryKeySelective(order);
+               return ServerResponse.createBySuccessMessage("发货成功");
+
+           }
+
+       }
+
+       return ServerResponse.createByErrorMessage("订单不存在");
 
    }
 
