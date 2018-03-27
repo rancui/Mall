@@ -453,7 +453,27 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
 
 
+//后台管理系统
 
+    /**
+     * 订单list
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public ServerResponse<PageInfo> manageList(int pageNum,int pageSize){
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<Order> orderList = orderMapper.selectAllOrder();
+        List<OrderVo> orderVoList = assmbleOrderVoList(null,orderList);
+
+        PageInfo pageInfo = new PageInfo(orderList);
+        pageInfo.setList(orderVoList);
+
+        return ServerResponse.createBySuccessData(pageInfo);
+
+
+    }
 
 
 

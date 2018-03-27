@@ -1,5 +1,6 @@
 package com.mmall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.ServerResponse;
 
 public interface IOrderService {
@@ -8,4 +9,11 @@ public interface IOrderService {
     ServerResponse getOrderCartProduct(Integer userId);
     ServerResponse getOrderList(Integer userId,int pageNum,int pageSize);
     ServerResponse getOrderDetail(Integer userId,Long orderNo);
+
+    //后台
+
+    ServerResponse<PageInfo> manageList(int pageNum, int pageSize);
+
+
+
 }
