@@ -51,8 +51,14 @@ public class OrderManageController {
     }
 
 
-
-
+    /**
+     * 按订单号查询
+     * @param session
+     * @param orderNo
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "search.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse search(HttpSession session, Long orderNo,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
@@ -73,8 +79,28 @@ public class OrderManageController {
     }
 
 
+    /**
+     * 订单详情
+     * @param session
+     * @param orderNo
+     * @return
+     */
+    @RequestMapping(value = "detail.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse detail(HttpSession session, Long orderNo){
 
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
 
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return orderService.manageDetail(user.getId(),orderNo);
+        }else {
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+
+    }
 
 
 

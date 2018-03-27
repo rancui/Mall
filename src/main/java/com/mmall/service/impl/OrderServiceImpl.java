@@ -505,13 +505,89 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
        return ServerResponse.createByErrorMessage("该订单不存在");
 
-
-
-
-
-
-
     }
+
+
+    /**
+     * 订单详情
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+   public  ServerResponse manageDetail(Integer userId,Long orderNo){
+
+        if(orderNo==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.ILLEGAL_ARGUMENT.getCode(),Const.ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        Order order = orderMapper.selectOrderByUserIdAndOrderNo(userId,orderNo);
+
+        if(order!=null){
+
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(orderNo);
+
+            OrderVo orderVo = this.assmbleOrderVo(order,orderItemList);
+
+            return ServerResponse.createBySuccessData(orderVo);
+
+        }
+
+        return ServerResponse.createByErrorMessage("订单不存在");
+
+
+
+
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
