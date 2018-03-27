@@ -72,10 +72,14 @@ public class OrderController {
     }
 
 
-
-
-
-    @RequestMapping(value = "list.do",method = RequestMethod.POST)
+    /**
+     * 订单列表
+     * @param session
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "get_order_list.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getOrderList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -88,6 +92,18 @@ public class OrderController {
 
 
 
+
+
+
+    @RequestMapping(value = "detail.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse getOrderDetail(HttpSession session, Long orderNo){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderDetail(user.getId(),orderNo);
+    }
 
 
 

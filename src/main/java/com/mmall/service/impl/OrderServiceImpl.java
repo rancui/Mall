@@ -422,18 +422,32 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
    }
 
-
     return orderVoList;
-
-
-
 
 }
 
 
+    /**
+     * 订单详情
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+    public  ServerResponse getOrderDetail(Integer userId,Long orderNo){
+
+    Order order = orderMapper.selectOrderByUserIdAndOrderNo(userId,orderNo);
+    if(order==null){
+        return ServerResponse.createByErrorMessage("该订单为空");
+    }
+
+    List<OrderItem> orderItemList = orderItemMapper.selectByUserIdAndOrderNo(userId,orderNo);
+
+    OrderVo orderVo = assmbleOrderVo(order,orderItemList);
+
+    return ServerResponse.createBySuccessData(orderVo);
 
 
-
+}
 
 
 

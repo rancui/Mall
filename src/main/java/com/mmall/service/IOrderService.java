@@ -7,4 +7,5 @@ public interface IOrderService {
     ServerResponse cancelOrder(Integer userId,Long orderNo);
     ServerResponse getOrderCartProduct(Integer userId);
     ServerResponse getOrderList(Integer userId,int pageNum,int pageSize);
+    ServerResponse getOrderDetail(Integer userId,Long orderNo);
 }
