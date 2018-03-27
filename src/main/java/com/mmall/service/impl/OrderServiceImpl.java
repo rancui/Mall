@@ -476,7 +476,42 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
     }
 
 
+    /**
+     * 按订单号查询
+     * @param userId
+     * @param orderNo
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public ServerResponse<PageInfo> manageSearch(Integer userId,Long orderNo,int pageNum,int pageSize){
 
+       PageHelper.startPage(pageNum,pageSize);
+       Order order = orderMapper.selectOrderByOrderNo(orderNo);
+
+       if(order!=null){
+
+           List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(orderNo);
+
+           OrderVo orderVo = assmbleOrderVo(order,orderItemList);
+
+           PageInfo pageInfo = new PageInfo(Lists.newArrayList(order));
+
+           pageInfo.setList(Lists.newArrayList(orderVo));
+
+           return ServerResponse.createBySuccessData(pageInfo);
+
+       }
+
+       return ServerResponse.createByErrorMessage("该订单不存在");
+
+
+
+
+
+
+
+    }
 
 
 

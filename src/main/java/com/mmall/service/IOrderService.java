@@ -13,6 +13,7 @@ public interface IOrderService {
     //后台
 
     ServerResponse<PageInfo> manageList(int pageNum, int pageSize);
+    ServerResponse<PageInfo> manageSearch(Integer userId,Long orderNo,int pageNum,int pageSize);
 
 
 

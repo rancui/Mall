@@ -48,11 +48,66 @@ public class OrderManageController {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
 
+    }
 
 
 
+
+    @RequestMapping(value = "search.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse search(HttpSession session, Long orderNo,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                 @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+
+
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return orderService.manageSearch(user.getId(),orderNo,pageNum,pageSize);
+        }else {
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
