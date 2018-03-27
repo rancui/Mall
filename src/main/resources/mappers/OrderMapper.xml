@@ -221,7 +221,7 @@
 
   SELECT <include refid="Base_Column_List"/>
   FROM mmall_order
-  ORDER BY create_time desc;
+  ORDER BY create_time desc
 
 
 </select>

@@ -217,9 +217,22 @@
 
 </select>
 
+<select id="selectAllOrder" resultMap="BaseResultMap">
+
+  SELECT <include refid="Base_Column_List"/>
+  FROM mmall_order
+  ORDER BY create_time desc
 
 
+</select>
 
+<select id="selectOrderByOrderNo" parameterType="long" resultMap="BaseResultMap">
+
+    SELECT <include refid="Base_Column_List"/>
+    FROM mmall_order
+    WHERE order_no = #{orderNo}
+
+</select>
 
 
 

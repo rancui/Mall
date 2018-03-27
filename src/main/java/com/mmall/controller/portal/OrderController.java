@@ -95,7 +95,7 @@ public class OrderController {
 
 
 
-    @RequestMapping(value = "detail.do",method = RequestMethod.POST)
+    @RequestMapping(value = "get_order_detail.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse getOrderDetail(HttpSession session, Long orderNo){
         User user = (User) session.getAttribute(Const.CURRENT_USER);

@@ -465,7 +465,7 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectAllOrder();
-        List<OrderVo> orderVoList = assmbleOrderVoList(null,orderList);
+        List<OrderVo> orderVoList = this.assmbleOrderVoList(null,orderList);
 
         PageInfo pageInfo = new PageInfo(orderList);
         pageInfo.setList(orderVoList);
