@@ -75,6 +75,115 @@ public class ShippingServiceImpl implements IShippingService{
     }
 
 
+    /**
+     * 选中查看具体的地址
+     * @param userId
+     * @param shippingId
+     * @return
+     */
+    public ServerResponse select(Integer userId,Integer shippingId){
+
+        Shipping shipping = shippingMapper.selectByUserIdAndShippingId(userId,shippingId);
+        if(shipping==null){
+            return ServerResponse.createByErrorMessage("改地址不存在");
+
+        }
+
+        return ServerResponse.createBySuccessMsgAndData("查询到改地址",shipping);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

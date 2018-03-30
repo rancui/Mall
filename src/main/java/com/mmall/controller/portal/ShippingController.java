@@ -58,8 +58,12 @@ public class ShippingController {
     }
 
 
-
-
+    /**
+     * 更新地址
+     * @param session
+     * @param shipping
+     * @return
+     */
     @RequestMapping(value = "update.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse update(HttpSession session, Shipping shipping){
@@ -72,6 +76,24 @@ public class ShippingController {
         return iShippingService.update(user.getId(),shipping);
     }
 
+
+    /**
+     * 选中查看具体的地址
+     * @param session
+     * @param shippingId
+     * @return
+     */
+    @RequestMapping(value = "select.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse select(HttpSession session, Integer shippingId){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iShippingService.select(user.getId(),shippingId);
+    }
 
 
 
