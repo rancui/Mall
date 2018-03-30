@@ -196,7 +196,13 @@
   </select>
 
 
+<select id="selectShippingListByUserId" parameterType="int" resultMap="BaseResultMap">
 
+  SELECT <include refid="Base_Column_List"/>
+  FROM mmall_shipping
+  WHERE user_id = #{userId}
+
+</select>
 
 
 

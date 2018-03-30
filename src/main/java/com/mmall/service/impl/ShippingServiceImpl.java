@@ -1,12 +1,18 @@
 package com.mmall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.dao.ShippingMapper;
 import com.mmall.pojo.Shipping;
 import com.mmall.service.IShippingService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.interfaces.RSAKey;
+import java.util.List;
 
 
 @Service("iShippingService")
@@ -94,8 +100,33 @@ public class ShippingServiceImpl implements IShippingService{
     }
 
 
+    /**
+     * 地址列表
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public ServerResponse<PageInfo> list(Integer userId,Integer pageNum,Integer pageSize){
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Shipping> shippingList = shippingMapper.selectShippingListByUserId(userId);
+        if(CollectionUtils.isEmpty(shippingList)){
+            return ServerResponse.createByErrorMessage("地址列表为空");
+        }
+
+        PageInfo pageInfo = new PageInfo(shippingList);
+
+        return ServerResponse.createBySuccessData(pageInfo);
 
 
+
+
+
+
+
+    }
 
 
 
