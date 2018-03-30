@@ -56,7 +56,23 @@ public class ShippingServiceImpl implements IShippingService{
     }
 
 
+    /**
+     * 更新地址
+     * @param userId
+     * @param shipping
+     * @return
+     */
+    public ServerResponse update(Integer userId,Shipping shipping){
 
+        shipping.setUserId(userId);
+        int count = shippingMapper.updateByPrimaryKeySelective(shipping);
+        if(count>0){
+            return ServerResponse.createBySuccessMessage("地址更新成功");
+        }
+
+        return ServerResponse.createByErrorMessage("更新地址失败");
+
+    }
 
 
 

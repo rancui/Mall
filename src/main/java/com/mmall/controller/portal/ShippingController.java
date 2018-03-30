@@ -59,4 +59,67 @@ public class ShippingController {
 
 
 
+
+    @RequestMapping(value = "update.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse update(HttpSession session, Shipping shipping){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
+
+        }
+
+        return iShippingService.update(user.getId(),shipping);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

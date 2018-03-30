@@ -7,6 +7,7 @@ public interface IShippingService {
 
     ServerResponse add(Integer userId, Shipping shipping);
     ServerResponse delete(Integer userId,Integer shippingId);
+    ServerResponse update(Integer userId,Shipping shipping);
 
 
 
