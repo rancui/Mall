@@ -594,15 +594,13 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
    }
 
 
-
-
-
-
-
-
-
-
-
+    /**
+     * 支付宝支付
+     * @param orderNo
+     * @param userId
+     * @param path
+     * @return
+     */
     public ServerResponse pay(Long orderNo,Integer userId,String path){
         Map<String ,String> resultMap = Maps.newHashMap();
         Order order = orderMapper.selectOrderByUserIdAndOrderNo(userId,orderNo);
