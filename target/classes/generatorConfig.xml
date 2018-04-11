@@ -9,7 +9,7 @@
     <properties resource="datasource.properties"></properties>
 
     <!--指定特定数据库的jdbc驱动jar包的位置-->
-    <classPathEntry location="E:/mmall20180105/src/main/tools/mysql-connector-java-5.1.6-bin.jar"/>
+    <classPathEntry location="F:/mmall20180107/src/main/tools/mysql-connector-java-5.1.6-bin.jar"/>
 
     <context id="default" targetRuntime="MyBatis3">
 
