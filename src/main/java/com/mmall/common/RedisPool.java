@@ -29,9 +29,9 @@ public class RedisPool {
         jedisPoolConfig.setMinIdle(minIdle);
         jedisPoolConfig.setTestOnBorrow(testOnBorrow);
         jedisPoolConfig.setTestOnReturn(testOnReturn);
-        jedisPoolConfig.setBlockWhenExhausted(true);
+        jedisPoolConfig.setBlockWhenExhausted(true);//连接耗尽的时候，是否阻塞，false会抛出异常，true阻塞直到超时。默认为true。
 
-        jedisPool = new JedisPool(jedisPoolConfig,redisIp,redisPort,2000);//连接耗尽的时候，是否阻塞，false会抛出异常，true阻塞直到超时。默认为true。
+        jedisPool = new JedisPool(jedisPoolConfig,redisIp,redisPort,2000);
 
     }
 
