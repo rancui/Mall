@@ -4,12 +4,17 @@ import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -28,11 +33,17 @@ public class UserController {
      */
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session){
+    public ServerResponse<User> login(String username, String password,HttpSession session, HttpServletResponse httpServletResponse){
 
         ServerResponse<User> userServerResponse = iUserService.login(username,password);
         if(userServerResponse.isSuccess()){
-            session.setAttribute(Const.CURRENT_USER,userServerResponse.getData());
+
+           //session.setAttribute(Const.CURRENT_USER,userServerResponse.getData());
+            CookieUtil.writeLoginToken(httpServletResponse,session.getId());
+
+            RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(userServerResponse.getData()),Const.RedisCacheExTime.REDIS_SESSION_EXTIME);
+
+
         }
 
         return userServerResponse;
@@ -40,16 +51,21 @@ public class UserController {
     }
 
 
-    /***
-     *  登出
-     * @param session
+    /**
+     * 登出
+     * @param request
+     * @param response
      * @return
      */
     @RequestMapping(value = "logout.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> logout(HttpSession session){
+    public ServerResponse<String> logout(HttpServletRequest request,HttpServletResponse response){
 
-        session.removeAttribute(Const.CURRENT_USER);
+        String loginToken = CookieUtil.readLoginToken(request);
+        CookieUtil.deleteLoginToken(request,response);
+        RedisPoolUtil.delete(loginToken);
+
+//        session.removeAttribute(Const.CURRENT_USER);
         return ServerResponse.createBySuccessMessage(" 登出成功");
 
     }
