@@ -7,6 +7,7 @@ import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisPoolUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,9 +92,18 @@ public class UserController {
      */
     @RequestMapping(value = "get_user_info.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse getUserInfo(HttpSession session){
+    public ServerResponse getUserInfo(HttpServletRequest request){
 
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
+
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
+
         if(user==null){
 
             return ServerResponse.createByErrorMessage("用户尚未登录");
@@ -154,9 +164,16 @@ public class UserController {
      */
     @RequestMapping(value = "reset_password.do",method = RequestMethod.POST)
     @ResponseBody
-    public  ServerResponse<String> resetPassword(HttpSession session,String passwordOld,String passwordNew){
+    public  ServerResponse<String> resetPassword(HttpServletRequest request,String passwordOld,String passwordNew){
 
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
 
         if(user==null){
            return ServerResponse.createByErrorMessage("用户未登陆");
@@ -174,19 +191,26 @@ public class UserController {
      */
     @RequestMapping(value = "update_info.do",method = RequestMethod.POST)
     @ResponseBody
-    public  ServerResponse<User> updatePersonalInfo(HttpSession session,User user){
+    public  ServerResponse<User> updatePersonalInfo(HttpSession session,HttpServletRequest request,User user){
 
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User userInRedis = JsonUtil.str2Obj(userStr,User.class);
+        if(userInRedis==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
 
-        user.setId(currentUser.getId());
-        user.setUsername(currentUser.getUsername());
+        user.setId(userInRedis.getId());
+        user.setUsername(userInRedis.getUsername());
 
         ServerResponse<User> userServerResponse = iUserService.updatePersonalInformation(user);
         if(userServerResponse.isSuccess()){
-            userServerResponse.getData().setUsername(currentUser.getUsername());
+            userServerResponse.getData().setUsername(userInRedis.getUsername());
             session.setAttribute(Const.CURRENT_USER,userServerResponse.getData());
         }
 

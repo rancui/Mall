@@ -11,7 +11,10 @@ import com.mmall.service.ICategoryService;
 import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
 import com.mmall.util.PropertiesUtil;
+import com.mmall.util.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,9 +52,16 @@ public class ProductManageController {
      */
     @RequestMapping(value = "list.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> getProductList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+    public ServerResponse<PageInfo> getProductList(HttpServletRequest request, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
 
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -74,9 +84,16 @@ public class ProductManageController {
      */
     @RequestMapping(value = "search.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse searchProduct(HttpSession session, String productName, Integer productId, @RequestParam(value = "pageNum",defaultValue = "1")int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerResponse searchProduct(HttpServletRequest request, String productName, Integer productId, @RequestParam(value = "pageNum",defaultValue = "1")int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
 
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -99,8 +116,15 @@ public class ProductManageController {
      */
     @RequestMapping(value = "detail.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse productDetail(HttpSession session, Integer productId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse productDetail(HttpServletRequest request, Integer productId){
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -117,15 +141,21 @@ public class ProductManageController {
 
     /**
      * 上传文件
-     * @param session
      * @param request
      * @param file
      * @return
      */
     @RequestMapping(value = "upload.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse upload(HttpSession session, HttpServletRequest request, MultipartFile file){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse upload(HttpServletRequest request, MultipartFile file){
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
         }
@@ -152,7 +182,6 @@ public class ProductManageController {
 
     /**
      *  富文本上传
-     * @param session
      * @param file
      * @param request
      * @param response
@@ -164,7 +193,18 @@ public class ProductManageController {
 
         Map resultMap = Maps.newHashMap();
 
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+
+        String loginToken = CookieUtil.readLoginToken(request);
+
+        if(StringUtils.isEmpty(loginToken)){
+            resultMap.put("success",false);
+            resultMap.put("msg","用户未登录，获取不到当前用户信息");
+        }
+
+        String userStr = RedisPoolUtil.get(loginToken);
+
+        User user = JsonUtil.str2Obj(userStr,User.class);
+
         if(user==null){
             resultMap.put("success",false);
             resultMap.put("msg","请联系管理员");
