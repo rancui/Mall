@@ -6,7 +6,7 @@ import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +30,7 @@ public class UserManageController {
                 //说明登录的是管理员
 
                 CookieUtil.writeLoginToken(httpServletResponse,session.getId());
-                RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(user),Const.RedisCacheExTime.REDIS_SESSION_EXTIME);
+                RedisShardedPoolUtil.setEx(session.getId(), JsonUtil.obj2String(user),Const.RedisCacheExTime.REDIS_SESSION_EXTIME);
 
                 return response;
 

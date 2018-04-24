@@ -8,7 +8,7 @@ import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
-import com.mmall.util.RedisPoolUtil;
+import com.mmall.util.RedisShardedPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/product/")
@@ -43,7 +42,7 @@ public class ProductController {
             return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
         }
 
-        String userStr = RedisPoolUtil.get(loginToken);
+        String userStr = RedisShardedPoolUtil.get(loginToken);
         User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
@@ -73,7 +72,7 @@ public class ProductController {
             return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息");
         }
 
-        String userStr = RedisPoolUtil.get(loginToken);
+        String userStr = RedisShardedPoolUtil.get(loginToken);
         User user = JsonUtil.str2Obj(userStr,User.class);
         if(user==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.NEED_LOGIN.getCode(),Const.ResponseCode.NEED_LOGIN.getDesc());
