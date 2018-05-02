@@ -42,7 +42,7 @@ public class ProductManageController {
 
     /**
      * 产品列表
-     * @param session
+     * @param request
      * @param pageNum
      * @param pageSize
      * @return
@@ -72,7 +72,7 @@ public class ProductManageController {
 
     /**
      * 搜索产品
-     * @param session
+     * @param request
      * @param productName
      * @param productId
      * @param pageNum
@@ -107,7 +107,7 @@ public class ProductManageController {
     /**
      *
      * 产品详情
-     * @param session
+     * @param request
      * @param productId
      * @return
      */
