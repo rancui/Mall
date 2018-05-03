@@ -6,7 +6,6 @@ import com.mmall.pojo.User;
 import com.mmall.util.CookieUtil;
 import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisShardedPoolUtil;
-import com.sun.org.apache.regexp.internal.RE;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -55,6 +54,12 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             stringBuffer.append(mapKey).append("=").append(mapValue);
         }
 
+        //不拦截UserManageController的login方法
+        if(StringUtils.equals(className,"UserManageController") && StringUtils.equals(methodName,"login")){
+            log.info("权限拦截器拦截到请求,className:{},methodName:{}",className,methodName);//如果是拦截到登录请求，不打印参数，因为参数里面有密码，全部会打印到日志中，防止日志泄露
+            return true;
+        }
+
         User user=null;
         String loginToken  = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isNotEmpty(loginToken)){
@@ -72,7 +77,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
 
             if(user==null){ //用户未登录
-                if(StringUtils.equals(className,"ProductManageController")&&StringUtils.equals(methodName,"richtext_img_upload")){
+                if(StringUtils.equals(className,"ProductManageController")&&StringUtils.equals(methodName,"richtextImgUpload")){
                     Map resultMap = Maps.newHashMap();
                     resultMap.put("success",false);
                     resultMap.put("msg","用户未登录");

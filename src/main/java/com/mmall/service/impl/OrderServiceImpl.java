@@ -510,13 +510,12 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
     /**
      * 按订单号查询
-     * @param userId
      * @param orderNo
      * @param pageNum
      * @param pageSize
      * @return
      */
-    public ServerResponse<PageInfo> manageSearch(Integer userId,Long orderNo,int pageNum,int pageSize){
+    public ServerResponse<PageInfo> manageSearch(Long orderNo,int pageNum,int pageSize){
 
        PageHelper.startPage(pageNum,pageSize);
        Order order = orderMapper.selectOrderByOrderNo(orderNo);
@@ -542,17 +541,16 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
     /**
      * 订单详情
-     * @param userId
      * @param orderNo
      * @return
      */
-   public  ServerResponse manageDetail(Integer userId,Long orderNo){
+   public  ServerResponse manageDetail(Long orderNo){
 
         if(orderNo==null){
             return ServerResponse.createByErrorCodeAndMessage(Const.ResponseCode.ILLEGAL_ARGUMENT.getCode(),Const.ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
 
-        Order order = orderMapper.selectOrderByUserIdAndOrderNo(userId,orderNo);
+        Order order = orderMapper.selectOrderByOrderNo(orderNo);
 
         if(order!=null){
 
