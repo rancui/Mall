@@ -213,7 +213,15 @@
         </where>
     </select>
 
+<select id="selectStockByProductId" parameterType="int" resultType="int">
 
+  SELECT stock FROM mmall_product
+
+  WHERE product_id = #{productId}
+
+  for update
+
+</select>
 
 
 

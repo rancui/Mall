@@ -26,5 +26,7 @@ public interface OrderMapper {
 
     Order selectOrderByOrderNo(Long orderNo);
 
+    List<Order> selectUnPayOrder(@Param("hour") Integer status,@Param("date") String date);
+
 
 }
