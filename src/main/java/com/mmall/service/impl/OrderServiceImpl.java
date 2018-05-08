@@ -780,6 +780,41 @@ private List<OrderVo> assmbleOrderVoList(Integer userId,List<Order> orderList){
 
 
 
+    public void closeOrder(int hour){
+
+        Date closeTime = DateUtils.addHours(new Date(),-hour);
+
+        List<Order> orderList = orderMapper.selectUnPayOrder(Const.OrderStatusEnum.NO_PAY.getCode(),DateTimeUtil.dateToStr(closeTime));
+
+        for(Order order:orderList){
+
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+
+            for(OrderItem orderItem:orderItemList){
+
+                Integer stock = productMapper.selectStockByProductId(orderItem.getProductId());
+
+                if(stock==null){
+                    continue;
+                }
+
+                Product product = new Product();
+                product.setId(orderItem.getProductId());
+                product.setStock(stock+orderItem.getQuantity());
+
+                productMapper.updateByPrimaryKeySelective(product);
+
+            }
+
+
+        }
+
+
+
+
+
+
+    }
 
 
 

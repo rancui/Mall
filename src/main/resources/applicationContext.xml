@@ -14,8 +14,10 @@
     </context:component-scan>
 
     <aop:aspectj-autoproxy/>
+
     <!--spring schedule-->
-    <!--<task:annotation-driven/>-->
+    <task:annotation-driven/>
+
     <import resource="applicationContext-spring-session.xml"/>
     <import resource="applicationContext-datasource.xml"/>
 

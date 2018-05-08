@@ -234,6 +234,18 @@
 
 </select>
 
+  <select id="selectUnPayOrder" resultMap="BaseResultMap" parameterType="map">
+
+    SELECT <include refid="Base_Column_List"/>
+    FROM mmall_order
+    WHERE status = #{status}
+
+    <![CDATA[
+    and create_time <=#{date}
+    ]]>
+    ORDER BY create_time desc
+  </select>
+
 
 
 

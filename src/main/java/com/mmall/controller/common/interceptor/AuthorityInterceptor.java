@@ -87,7 +87,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                 }
 
             }else { //用户无权限
-                if(StringUtils.equals(className,"ProductManageController")&&StringUtils.equals(methodName,"richtext_img_upload")){
+                if(StringUtils.equals(className,"ProductManageController")&&StringUtils.equals(methodName,"richtextImgUpload")){
                     Map resultMap = Maps.newHashMap();
                     resultMap.put("success",false);
                     resultMap.put("msg","用户无权限");
