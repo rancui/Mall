@@ -1,14 +1,23 @@
 package com.mmall.task;
 
 import com.mmall.common.Const;
+import com.mmall.common.RedissonManage;
 import com.mmall.service.IOrderService;
 import com.mmall.util.PropertiesUtil;
 import com.mmall.util.RedisShardedPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RFuture;
+import org.redisson.api.RLock;
+import org.redisson.client.codec.Codec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import sun.security.krb5.Config;
+
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 
 @Component
 @Slf4j
@@ -27,7 +36,7 @@ public class timingCloseOrderTask {
 
     }
 
-    @Scheduled(cron = "0 */1 * * * ?")
+    //@Scheduled(cron = "0 */1 * * * ?")
     private void closeOrderTaskV2(){
 
         long lockTimeout = Long.parseLong(PropertiesUtil.getProperty("lock.time"));
@@ -54,6 +63,43 @@ public class timingCloseOrderTask {
 
         }
     }
+
+
+
+     @Autowired
+     private RedissonManage redissonManage;
+
+    private void closeOrderTaskV3(){
+
+         RLock rLock = redissonManage.getRedisson().getLock(Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK);
+
+         Boolean lock = false;
+
+        try {
+            if(lock = rLock.tryLock(0,5,TimeUnit.SECONDS)){
+                log.info("获取到分布式锁:{}，线程:{}",Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK,Thread.currentThread().getName());
+                int hour = Integer.parseInt(PropertiesUtil.getProperty("close.order.task.time.hour"));
+                iOrderService.closeOrder(hour);
+            }else {
+                log.info("没有获取到分布式锁");
+            }
+        } catch (InterruptedException e) {
+            log.info("没有获取到分布式锁",e);
+        } finally {
+            if(!lock){
+                return;
+            }
+            log.info("===释放分布式锁:{}",Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK);
+            rLock.unlock();
+        }
+
+
+    }
+
+
+
+
+
 
     //关闭订单
     private void closeOrder(String lockName){
